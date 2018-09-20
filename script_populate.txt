@@ -1,0 +1,31 @@
+INSERT INTO student(studentID, fName,lName)
+VALUES(NULL, 'Aaron', 'So');
+
+INSERT INTO student(studentID, fName,lName)
+VALUES(NULL, 'Jason', 'Ong');
+
+INSERT INTO student(studentID, fName,lName)
+VALUES(NULL, 'Isabel', 'Chua');
+
+INSERT INTO student(studentID, fName,lName)
+VALUES(NULL, 'Ted', 'Yap');
+
+INSERT INTO student(studentID, fName, lName)
+VALUES(NULL, 'Eric', 'Seow');
+
+INSERT INTO student(studentID, fName, lName)
+VALUES(NULL, 'Jensen', 'Tan');
+
+INSERT INTO lecturer(lecturerID, fName, lName)
+VALUES(NULL, 'Jerry', 'Chong');
+
+INSERT INTO lecturer(lecturerID, fName, lName)
+VALUES(NULL, 'Heng', 'Shun');
+
+INSERT INTO lecturer(lecturerID, fName, lName)
+VALUES(NULL, 'John', 'Pegan');
+
+INSERT INTO intake(intakeID, intakeDesc, studentID)
+VALUES(NULL, 'CO2019', 1);
+
+
