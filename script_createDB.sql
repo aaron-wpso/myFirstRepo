@@ -1,3 +1,5 @@
+Drop database dbAttendance;
+
 CREATE database dbAttendance;
 
 CREATE TABLE dbAttendance.Course
