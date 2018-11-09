@@ -3,6 +3,8 @@ package com.bucketlist.aaron.bucketlist.entities;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,8 @@ public class Step implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
 	private byte done;
 
@@ -33,11 +36,11 @@ public class Step implements Serializable {
 	public Step() {
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

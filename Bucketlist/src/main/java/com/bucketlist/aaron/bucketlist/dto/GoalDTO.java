@@ -3,9 +3,10 @@ package com.bucketlist.aaron.bucketlist.dto;
 public class GoalDTO 
 {
 	private Integer id;
-	private byte done;
+	private Boolean done;
 	private int importance;
 	private String title;
+	private String cateName;
 	
 	public Integer getId() {
 		return id;
@@ -13,10 +14,16 @@ public class GoalDTO
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public byte getDone() {
+	public Boolean getDone() {
 		return done;
 	}
-	public void setDone(byte done) {
+	public String getCateName() {
+		return cateName;
+	}
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
+	}
+	public void setDone(Boolean done) {
 		this.done = done;
 	}
 	public int getImportance() {

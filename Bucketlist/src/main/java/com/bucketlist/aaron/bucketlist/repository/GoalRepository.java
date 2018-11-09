@@ -7,5 +7,5 @@ import com.bucketlist.aaron.bucketlist.entities.Goal;
 
 @Repository
 public interface GoalRepository extends CrudRepository<Goal, Integer>{
-
+	 
 }

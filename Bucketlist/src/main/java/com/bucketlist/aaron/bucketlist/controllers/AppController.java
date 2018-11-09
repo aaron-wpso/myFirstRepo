@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,34 +38,7 @@ public class AppController {
 	@GetMapping(path ="/category/getAll")
 	public List<CategoryDTO> getAllCategories() 
 	{
-		List<Category> categoryList = categoryService.getAllCategories();
-		
-		List<CategoryDTO> dtoList = new ArrayList<>();
-		for(Category category: categoryList)
-		{
-			CategoryDTO dtoCategory = new CategoryDTO();
-			
-			dtoCategory.setId(category.getId());
-			dtoCategory.setCateName(category.getCateName());
-			
-			List<GoalDTO> dtoGoalList = new ArrayList<>(); 
-			for(Goal goal: category.getGoals())
-			{
-				GoalDTO dtoGoal = new GoalDTO();
-					
-				dtoGoal.setId(goal.getId());
-				dtoGoal.setTitle(goal.getTitle());
-				dtoGoal.setImportance(goal.getImportance());
-				dtoGoal.setDone(goal.getDone());
-					
-				dtoGoalList.add(dtoGoal);
-			
-			}
-			dtoCategory.setGoals(dtoGoalList);
-			dtoList.add(dtoCategory);
-		}
-		
-		return dtoList;
+		return categoryService.getAllCategories();
 	}
 	
 	@PutMapping(path = "/category/update")
@@ -73,15 +47,42 @@ public class AppController {
 		categoryService.updateCategories(categoryDTOList);
 	}
 	
+	@DeleteMapping(path ="/category/delete/{id}")
+	public void deleteCategory(@PathVariable("id") int id)
+	{
+		categoryService.deleteCategory(id);
+	}
+	
+	@PostMapping(path = "/category/create")
+	public void createCategory(@RequestBody CategoryDTO categoryDTO)
+	{
+		categoryService.createCategory(categoryDTO);
+	}
+	
 	@DeleteMapping(path = "/goal/delete/{id}")
 	public void deleteGoal(@PathVariable("id") int id)
 	{
 		goalService.deleteGoal(id);
-	}
+	}	
 	
 	@GetMapping(path ="/goal/getAll")
 	public List<GoalDTO> getAllGoals() 
 	{
 		return goalService.getAllGoals();
 	}
+	
+	@PutMapping(path = "/goal/update")
+	public void updateGoal(@RequestBody GoalDTO goalDTO)
+	{
+		goalService.updateGoal(goalDTO);
+	}
+	
+	@PostMapping(path = "/goal/create")
+	public void createGoal(@RequestBody GoalDTO goalDTO)
+	{
+		goalService.createGoal(goalDTO);
+	}
+	
+
+
 }

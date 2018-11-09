@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -23,9 +25,10 @@ public class Goal implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	private byte done;
+	private Boolean done;
 
 	private int importance;
 
@@ -68,11 +71,11 @@ public class Goal implements Serializable {
 		this.id = id;
 	}
 
-	public byte getDone() {
+	public Boolean getDone() {
 		return this.done;
 	}
 
-	public void setDone(byte done) {
+	public void setDone(Boolean done) {
 		this.done = done;
 	}
 

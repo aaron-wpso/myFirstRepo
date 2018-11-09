@@ -6,9 +6,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 
   jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
+    show-sql: false
       
 logging:
   path: C:/SLSIntern/log/bucketlist.log

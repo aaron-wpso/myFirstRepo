@@ -1,17 +1,95 @@
 <!DOCTYPE html>
-<html ng-app = "myModule">
-    <head>
-        <meta charset="ISO-8859-1">
-        <title>Bucket List Application</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
-        <script src = "app/app.js"></script>
-        <script src = "app/service.js"></script>
-        <script src="app/script.js"></script>
-      </head>
+<html ng-app = "myapp">
+   <head>
+       <meta charset="ISO-8859-1">
+       <title>Bucket List Application</title>
+       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+       <script src = "app/app.js"></script>
+       <script src = "app/service.js"></script>
+       <script src="app/script.js"></script>
+       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-      <body ng-controller = "mainCtrl">
-        <h1>Category</h1>
-        <p ng-model ="categoryList">{{categoryList}}</p>
+
+     </head>
+
+     <body  ng-controller = "MainCtrl">
+       <h1>BucketList Application</h1>
+       <div class="row">
+         <div class="col-4">
+           <div class="list-group" id="list-tab" role="tablist">
+             <a ng-repeat-start="category in categoryList" ng-if = "$first" ng-init = "selectCategory(category)" ng-click = "selectCategory(category)" class="list-group-item list-group-item-action active" id="list-{{category.cateName}}-list" data-toggle="list" href="#list-{{category.cateName}}" role="tab" aria-controls="{{category.cateName}}">{{category.cateName}}
+               <button class="btn" ng-click = ""><i class="fa fa-close"></i></button>
+             </a>
+             <a ng-repeat-end ng-if = "!$first" ng-click = "selectCategory(category)" class="list-group-item list-group-item-action" id="list-{{category.cateName}}-list" data-toggle="list" href="#list-{{category.cateName}}" role="tab" aria-controls="{{category.cateName}}">{{category.cateName}}
+               <button class="btn" ng-click = ""><i class="fa fa-close"></i></button>
+             </a>
+           </div>
+           <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+              <div ng-repeat-start="category in categoryList" ng-if = "$first" class="tab-pane fade show active" id="list-{{category.cateName}}" role="tabpanel" aria-labelledby="list-{{category.cateName}}-list">
+                <div ng-repeat="goal in category.goals">{{goal.title}}
+                  <input type = "checkbox", ng-checked = "goal.done", ng-model = "goal.done">
+                  <select name = "goalImportance" ng-options ="option for option in importance.availableOptions" ng-model ="goal.importance"></select>
+                  <button class="btn" ng-click = "deleteGoal(goal.id)"><i class="fa fa-close"></i></button>
+                </div>
+              </div>
+              <div ng-repeat-end ng-if = "!$first" class="tab-pane fade" id="list-{{category.cateName}}" role="tabpanel" aria-labelledby="list-{{category.cateName}}-list">
+                <div ng-repeat="goal in category.goals">{{goal.title}}
+                  <input type = "checkbox", ng-checked = "goal.done", ng-model = "goal.done">
+                  <button class="btn" ng-click = "deleteGoal(goal.id)"><i class="fa fa-close"></i></button>
+                </div>
+              </div>
+            </div>
+            <button ng-click = "verifyInConsole(categoryList); updateCategoryList();">Update Database</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addGoalModal">Add Goal</button>
+            </div>
+          </div>
         </div>
-      </body>
+
+
+
+        <!-- Modal -->
+        <div id="addGoalModal" class="modal fade" role="dialog" ng-controller = "ModalCtrl">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Add Goal</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div>
+                    <label>Goal Title: </label>
+                    <input ng-model = "newGoalTitle" type="text" placeholder = "e.g. Open a cake shop">
+                  </div> <br>
+                  <div>
+                    <label>Goal Importance: </label>
+                    <select ng-model = "newGoalImportance" name = "goalImportance" ng-options ="option for option in importance.availableOptions"></select>
+                  </div> <br>
+                  <div>
+                    <label>Goal Done: </label>
+                    <input type = "checkbox" ng-init = "newGaolDone = false" ng-model = "newGoalDone">
+                  </div> <br>
+                  <div>
+                    <label>Goal Category: {{selectedCategory.cateName}}</label>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-click = "createNewGoal()">Submit</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+     </body>
+
+
 </html>

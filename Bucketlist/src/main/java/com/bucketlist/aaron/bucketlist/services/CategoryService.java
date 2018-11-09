@@ -22,17 +22,47 @@ public class CategoryService
 	@Autowired
 	GoalRepository goalRepository;
 	
-	public List<Category> getAllCategories()
+	public List<CategoryDTO> getAllCategories()
 	{
 		List<Category> categoryList = new ArrayList<>();
 		categoryRepository.findAll().forEach(categoryList::add);
-		return categoryList;
+		
+		List<CategoryDTO> dtoList = new ArrayList<>();
+		for(Category category: categoryList)
+		{
+			CategoryDTO dtoCategory = new CategoryDTO();
+			
+			dtoCategory.setId(category.getId());
+			dtoCategory.setCateName(category.getCateName());
+			
+			List<GoalDTO> dtoGoalList = new ArrayList<>(); 
+			for(Goal goal: category.getGoals())
+			{
+				GoalDTO dtoGoal = new GoalDTO();
+					
+				dtoGoal.setId(goal.getId());
+				dtoGoal.setTitle(goal.getTitle());
+				dtoGoal.setImportance(goal.getImportance());
+				dtoGoal.setDone(goal.getDone());
+					
+				dtoGoalList.add(dtoGoal);
+			
+			}
+			dtoCategory.setGoals(dtoGoalList);
+			dtoList.add(dtoCategory);
+		}
+		
+		return dtoList;
+		
 	}
 	
 	public void updateCategories(List<CategoryDTO> categoryDTOList)
 	{
 		for(CategoryDTO categoryDTO : categoryDTOList)
 		{
+			Category category = categoryRepository.findOne(categoryDTO.getId());
+			category.setCateName(categoryDTO.getCateName());
+			
 			List<GoalDTO> goalDTOList = categoryDTO.getGoals();
 			
 			for(GoalDTO goalDTO : goalDTOList)
@@ -44,6 +74,43 @@ public class CategoryService
 				
 				goalRepository.save(goal);
 			}
+			
+			categoryRepository.save(category);
 		}
 	}
+	
+	public void createCategory(CategoryDTO categoryDTO)
+	{
+		Category category = new Category();
+		
+		category.setCateName(categoryDTO.getCateName());
+		
+		List<Goal> goalList = new ArrayList<>(); 
+		for(GoalDTO goalDTO : categoryDTO.getGoals())
+		{
+			Goal goal = new Goal();
+			goal.setTitle(goalDTO.getTitle());
+			goal.setImportance(goalDTO.getImportance());
+			goal.setDone(goalDTO.getDone());
+			
+			goalList.add(goal);
+		}
+		category.setGoals(goalList);
+		
+		categoryRepository.save(category);
+		goalRepository.save(category.getGoals());
+	}
+	
+	public void deleteCategory(int id)
+	{	
+		Category category = categoryRepository.findOne(id);
+		for(Goal goal:category.getGoals())
+		{
+			goalRepository.delete(goal);
+		}
+		categoryRepository.delete(id);
+		
+	}
+	
+	
 }
