@@ -1,0 +1,69 @@
+#row1 {
+	background-color: gold;
+}
+
+#bucket {
+	margin-top: 50px;
+	margin-left: 120px;
+	width: 140px;
+	height: 120px;
+}
+
+.jumbotron {
+	background-color: Transparent;
+}
+
+.list-group-item {
+	padding-top: 25px;
+	text-align: center;
+	text-transform: capitalize;
+	font-family: cursive;
+	font-size: 20px;
+}
+
+.btn-delete {
+	float: left;
+}
+
+.row h1 {
+	font-weight: bold;
+}
+
+.goal {
+	padding: 10px;
+	font-family: cursive;
+	font-size: 20px;
+}
+
+.modal-content {
+	font-family: cursive;
+	font-size: 20px;
+}
+
+.selectedCategory {
+	text-transform: capitalize;
+}
+
+.modal-body span {
+	text-transform: capitalize;
+	color: red;
+}
+
+.small-text {
+	font-size: 15px;
+}
+
+.btn-add {
+	border: none;
+	display: inline-block;
+	padding: 8px 16px;
+	vertical-align: middle;
+	overflow: hidden;
+	text-decoration: none;
+	color: white;
+	background-color: lightblue;
+	text-align: center;
+	cursor: pointer;
+	white-space: nowrap;
+	border-radius: 50%;
+}

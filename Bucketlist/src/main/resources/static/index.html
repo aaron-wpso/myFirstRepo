@@ -10,82 +10,173 @@
        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+       <link rel="stylesheet" href="stylesheets/home.css">
+   </head>
 
-
-     </head>
-
-     <body  ng-controller = "MainCtrl">
-       <h1>BucketList Application</h1>
-       <div class="row">
-         <div class="col-4">
-           <div class="list-group" id="list-tab" role="tablist">
-             <a ng-repeat-start="category in categoryList" ng-if = "$first" ng-init = "selectCategory(category)" ng-click = "selectCategory(category)" class="list-group-item list-group-item-action active" id="list-{{category.cateName}}-list" data-toggle="list" href="#list-{{category.cateName}}" role="tab" aria-controls="{{category.cateName}}">{{category.cateName}}
-               <button class="btn" ng-click = ""><i class="fa fa-close"></i></button>
-             </a>
-             <a ng-repeat-end ng-if = "!$first" ng-click = "selectCategory(category)" class="list-group-item list-group-item-action" id="list-{{category.cateName}}-list" data-toggle="list" href="#list-{{category.cateName}}" role="tab" aria-controls="{{category.cateName}}">{{category.cateName}}
-               <button class="btn" ng-click = ""><i class="fa fa-close"></i></button>
-             </a>
-           </div>
-           <div class="col-8">
-            <div class="tab-content" id="nav-tabContent">
-              <div ng-repeat-start="category in categoryList" ng-if = "$first" class="tab-pane fade show active" id="list-{{category.cateName}}" role="tabpanel" aria-labelledby="list-{{category.cateName}}-list">
-                <div ng-repeat="goal in category.goals">{{goal.title}}
-                  <input type = "checkbox", ng-checked = "goal.done", ng-model = "goal.done">
-                  <select name = "goalImportance" ng-options ="option for option in importance.availableOptions" ng-model ="goal.importance"></select>
-                  <button class="btn" ng-click = "deleteGoal(goal.id)"><i class="fa fa-close"></i></button>
-                </div>
-              </div>
-              <div ng-repeat-end ng-if = "!$first" class="tab-pane fade" id="list-{{category.cateName}}" role="tabpanel" aria-labelledby="list-{{category.cateName}}-list">
-                <div ng-repeat="goal in category.goals">{{goal.title}}
-                  <input type = "checkbox", ng-checked = "goal.done", ng-model = "goal.done">
-                  <button class="btn" ng-click = "deleteGoal(goal.id)"><i class="fa fa-close"></i></button>
-                </div>
-              </div>
-            </div>
-            <button ng-click = "verifyInConsole(categoryList); updateCategoryList();">Update Database</button>
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addGoalModal">Add Goal</button>
+     <body ng-controller = "MainCtrl">
+       <div id="row1" class ="row">
+        <div class = "col-1">
+         <img id = "bucket" src="icon/bucketlist.png" alt ="BucketList Logo">
+        </div>
+        <div class = "col-11">
+          <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h1 class="display-4">My BucketList</h1>
+              <p class="lead">Start checking off your list :)</p>
             </div>
           </div>
         </div>
-
-
-
-        <!-- Modal -->
-        <div id="addGoalModal" class="modal fade" role="dialog" ng-controller = "ModalCtrl">
-          <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">Add Goal</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+       <div id="row2" class="row">
+         <div class="col-3">
+           <div class="list-group" id="list-tab" role="tablist">
+             <a ng-repeat-start="category in categoryList" ng-if= "$first" ng-init = "selectCategory(category);" ng-click = "selectCategory(category)" class="list-group-item list-group-item-action active" id="list-{{category.cateName}}-list" data-toggle="list" href="#list-{{category.cateName}}" role="tab" aria-controls="{{category.cateName}}">
+               {{category.cateName}}
+               <button class="btn btn-right btn-delete" data-toggle = "modal" data-target ="#{{category.cateName}}Modal" ><i class="fas fa-trash"></i></button>
+             </a>
+             <a ng-repeat-end ng-if = "!$first" ng-click = "selectCategory(category);" class="list-group-item list-group-item-action" id="list-{{category.cateName}}-list" data-toggle="list" href="#list-{{category.cateName}}" role="tab" aria-controls="{{category.cateName}}">
+               {{category.cateName}}
+               <button class="btn btn-delete"  data-toggle = "modal" data-target ="#{{category.cateName}}Modal"><i class="fas fa-trash"></i></button>
+             </a>
+             <a  class="list-group-item list-group-item-action" >
+               <button class ="btn-add" data-toggle="modal" data-target="#addCategoryModal"><i class="fas fa-plus"></i></button>
+             </a>
+           </div>
+         </div>
+           <div class="col-9">
+            <div class="tab-content" id="nav-tabContent">
+              <div ng-repeat-start="category in categoryList" ng-if = "$first" class="tab-pane fade show active" id="list-{{category.cateName}}" role="tabpanel" aria-labelledby="list-{{category.cateName}}-list">
+                <div class="row">
+                  <table class = "table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Done</th>
+                        <th>Importance</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="goal" ng-repeat="goal in category.goals">
+                        <td>{{goal.title}}</td>
+                        <td><input type = "checkbox", ng-checked = "goal.done", ng-model = "goal.done"></td>
+                        <td><select name = "goalImportance" ng-options ="option for option in importance.availableOptions" ng-model ="goal.importance"></select></td>
+                        <td><button class="btn btn-delete" ng-click = "deleteGoal(goal.id)"><i class="fas fa-trash"></i></button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-              <div class="modal-body">
-                <form>
-                  <div>
-                    <label>Goal Title: </label>
-                    <input ng-model = "newGoalTitle" type="text" placeholder = "e.g. Open a cake shop">
-                  </div> <br>
-                  <div>
-                    <label>Goal Importance: </label>
-                    <select ng-model = "newGoalImportance" name = "goalImportance" ng-options ="option for option in importance.availableOptions"></select>
-                  </div> <br>
-                  <div>
-                    <label>Goal Done: </label>
-                    <input type = "checkbox" ng-init = "newGaolDone = false" ng-model = "newGoalDone">
-                  </div> <br>
-                  <div>
-                    <label>Goal Category: {{selectedCategory.cateName}}</label>
+              <div ng-repeat-end ng-if = "!$first" class="tab-pane fade" id="list-{{category.cateName}}" role="tabpanel" aria-labelledby="list-{{category.cateName}}-list">
+                <div class="row">
+                  <table class = "table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Done</th>
+                        <th>Importance</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="goal" ng-repeat="goal in category.goals">
+                        <td>{{goal.title}}</td>
+                        <td><input type = "checkbox", ng-checked = "goal.done", ng-model = "goal.done"></td>
+                        <td><select name = "goalImportance" ng-options ="option for option in importance.availableOptions" ng-model ="goal.importance"></select></td>
+                        <td><button class="btn btn-delete" ng-click = "deleteGoal(goal.id)"><i class="fas fa-trash"></i></button></td>
+                      </tr>
+                    </tbody>
+                  </table>
                   </div>
+                </div>
+                  <button type=" button" class = "btn btn-info btn-lg" ng-click ="updateCategoryList();">Update Database</button>
+                  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addGoalModal">Add Goal</button>
+              </div>
+            </div>
+          </div>
 
+          <div ng-controller = "ModalCtrl">
+            <!-- Modal for adding Goals -->
+
+            <div id="addGoalModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Add Goal</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div>
+                        <label>Goal Title: </label>
+                        <input ng-model = "newGoalTitle" type="text" placeholder = "e.g. Open a cake shop">
+                      </div> <br>
+                      <div>
+                        <label>Goal Importance: </label>
+                        <select ng-model = "newGoalImportance" name = "goalImportance" ng-options ="option for option in importance.availableOptions"></select>
+                      </div> <br>
+                      <div>
+                        <label>Goal Done: </label>
+                        <input type = "checkbox" ng-init = "newGaolDone = false" ng-model = "newGoalDone">
+                      </div> <br>
+                      <div class="selectedCategory">
+                        <label>Goal Category: {{selectedCategory.cateName}}</label>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-info btn-lg" data-dismiss="modal" ng-click = "createNewGoal()">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div id="addCategoryModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Add Category</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div>
+                          <label>Category Name: </label>
+                          <input ng-model = "newCategoryName" type="text" placeholder = "e.g. Adventure">
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-info btn-lg" data-dismiss="modal" ng-click = "createNewCategory()">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          <!-- Modal -->
+          <div ng-repeat="category in categoryList" class="modal fade" id="{{category.cateName}}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Confirm to delete <span>{{category.cateName}}</span> category</p>
+                  <p class ="small-text">Note: It will delete the goals within the category as well</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-click = "createNewGoal()">Submit</button>
+                  <button type="button" class="btn btn-secondary btn-lg " data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-info btn-lg" ng-click ="deleteCategory(category.id)" data-dismiss="modal">Confirm</button>
                 </div>
               </div>
-
             </div>
           </div>
 

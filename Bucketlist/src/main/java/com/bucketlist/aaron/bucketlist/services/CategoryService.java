@@ -85,20 +85,26 @@ public class CategoryService
 		
 		category.setCateName(categoryDTO.getCateName());
 		
-		List<Goal> goalList = new ArrayList<>(); 
-		for(GoalDTO goalDTO : categoryDTO.getGoals())
+		if(categoryDTO.getGoals() != null)
 		{
-			Goal goal = new Goal();
-			goal.setTitle(goalDTO.getTitle());
-			goal.setImportance(goalDTO.getImportance());
-			goal.setDone(goalDTO.getDone());
+		
+			List<Goal> goalList = new ArrayList<>(); 
+			for(GoalDTO goalDTO : categoryDTO.getGoals())
+			{
+				Goal goal = new Goal();
+				goal.setTitle(goalDTO.getTitle());
+				goal.setImportance(goalDTO.getImportance());
+				goal.setDone(goalDTO.getDone());
 			
-			goalList.add(goal);
+				goalList.add(goal);
+			}
+			category.setGoals(goalList);
+			
+			goalRepository.save(category.getGoals());
 		}
-		category.setGoals(goalList);
 		
 		categoryRepository.save(category);
-		goalRepository.save(category.getGoals());
+		
 	}
 	
 	public void deleteCategory(int id)
