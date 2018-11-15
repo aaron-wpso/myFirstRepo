@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bucketlist.aaron.bucketlist.dto.GoalDTO;
+import com.bucketlist.aaron.bucketlist.dto.StepDTO;
 import com.bucketlist.aaron.bucketlist.entities.Category;
 import com.bucketlist.aaron.bucketlist.entities.Goal;
+import com.bucketlist.aaron.bucketlist.entities.Step;
+import com.bucketlist.aaron.bucketlist.exceptions.TooManyGoalsException;
 import com.bucketlist.aaron.bucketlist.repository.CategoryRepository;
 import com.bucketlist.aaron.bucketlist.repository.GoalRepository;
 
@@ -57,20 +60,31 @@ public class GoalService
 		goalRepository.save(goal);
 	}
 	
-	public void createGoal(GoalDTO goalDTO)
+	public void createGoal(GoalDTO goalDTO) throws TooManyGoalsException
 	{
-		Category cateName = categoryRepository.findByCateName(goalDTO.getCateName());
+		Category categoryFromGoalDTO = categoryRepository.findByCateName(goalDTO.getCateName());
 		
-		Goal goal = new Goal();
-		goal.setTitle(goalDTO.getTitle());
-		goal.setDone(goalDTO.getDone());
-		goal.setImportance(goalDTO.getImportance());
+		List<Goal> GoalsInCategory = categoryFromGoalDTO.getGoals();
+		int size = GoalsInCategory.size();
+		if(size >= 5)
+		{
+			throw new TooManyGoalsException("Too Many Goals!");
+		}
+		else
+		{
+			Category cateName = categoryRepository.findByCateName(goalDTO.getCateName());
 		
-		List categoryList = new ArrayList<>();
-		categoryList.add(cateName);
+			Goal goal = new Goal();
+			goal.setTitle(goalDTO.getTitle());
+			goal.setDone(goalDTO.getDone());
+			goal.setImportance(goalDTO.getImportance());
 		
-		goal.setCategories(categoryList);
+			List categoryList = new ArrayList<>();
+			categoryList.add(cateName);
 		
-		goalRepository.save(goal);
+			goal.setCategories(categoryList);
+		
+			goalRepository.save(goal);
+		}
 	}
 }

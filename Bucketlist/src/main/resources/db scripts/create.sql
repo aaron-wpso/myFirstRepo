@@ -77,3 +77,36 @@ CREATE TABLE journal
 
 ALTER TABLE journal
 ADD FOREIGN KEY(goal_id) REFERENCES goal(id);
+
+DROP TABLE IF EXISTS user;
+CREATE TABLE user
+(
+	id int AUTO_INCREMENT,
+    username text,
+    passcode text,
+    tfa boolean,
+    
+    PRIMARY KEY(id)
+);
+
+/*DROP DATABASE IF EXISTS test;
+CREATE DATABASE test;
+USE test;
+
+DROP TABLE IF EXISTS testTable;
+CREATE TABLE testTable
+(
+	id int,
+    fname text,
+	age int
+
+);
+
+INSERT INTO testTable(id,fname,age)
+values (1, 'roger', 30),
+	   (2, 'sam', 32),
+       (3, 'test', 24),
+       (4, 'david', 50),
+       (3, 'test', 24),
+       (5, 'xyz', 28),
+       (2, 'sam', 32);*/

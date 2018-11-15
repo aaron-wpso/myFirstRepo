@@ -24,7 +24,7 @@ public class Step implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	private byte done;
+	private Boolean done;
 
 	@Lob
 	private String instruction;
@@ -44,11 +44,11 @@ public class Step implements Serializable {
 		this.id = id;
 	}
 
-	public byte getDone() {
+	public Boolean getDone() {
 		return this.done;
 	}
 
-	public void setDone(byte done) {
+	public void setDone(Boolean done) {
 		this.done = done;
 	}
 

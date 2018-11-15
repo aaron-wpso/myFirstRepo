@@ -1,5 +1,7 @@
 package com.bucketlist.aaron.bucketlist.dto;
 
+import java.util.List;
+
 public class GoalDTO 
 {
 	private Integer id;
@@ -7,7 +9,14 @@ public class GoalDTO
 	private int importance;
 	private String title;
 	private String cateName;
+	private List<StepDTO> steps;
 	
+	public List<StepDTO> getSteps() {
+		return steps;
+	}
+	public void setSteps(List<StepDTO> steps) {
+		this.steps = steps;
+	}
 	public Integer getId() {
 		return id;
 	}
