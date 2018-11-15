@@ -51,7 +51,7 @@ values (1,1),
        (17,3),
        (18,3),
        (19,6);
-       
+/*       
 insert into step(instruction, done, goal_id)
 values ('Book an air ticket to Norway between October and March', false, 1),
 	   ('Pack artic clothes and travel gear', false, 1),
@@ -74,4 +74,4 @@ values ('Book an air ticket to Norway between October and March', false, 1),
        ('Book a hotel', false, 5),
        ('Get the entry ticket for DisneyWorld', false, 5),
        ('Enjoy the Disney World', false, 5);
-       
+       */

@@ -1,0 +1,8 @@
+com.bucketlist.aaron.Bucketlist
+com.bucketlist.aaron.bucketlist
+com.bucketlist.aaron.bucketlist.controllers
+com.bucketlist.aaron.bucketlist.dto
+com.bucketlist.aaron.bucketlist.entities
+com.bucketlist.aaron.bucketlist.exceptions
+com.bucketlist.aaron.bucketlist.repository
+com.bucketlist.aaron.bucketlist.services
