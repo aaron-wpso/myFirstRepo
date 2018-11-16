@@ -23,7 +23,7 @@ Compile the code into a jar file and run the command of java -jar "filename"
 
 ## Author
 
-* **Wei Ping So**
+* **Aaron So**
 
 ## Acknowledgments
 
