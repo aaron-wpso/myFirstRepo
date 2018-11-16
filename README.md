@@ -6,8 +6,8 @@ This application allows for people create a bucketlist online and add a series o
 
 Things you need to install the software 
 
--Spring Tool Suite 3
--MySQL (The one I have is: Server version:5.6.41-log MySQL Community Server (GPL))
+- Spring Tool Suite 3
+- MySQL (The one I have is: Server version:5.6.41-log MySQL Community Server (GPL))
 - Web browser (Chrome is preferred)
 
 
