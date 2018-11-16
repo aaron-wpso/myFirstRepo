@@ -2,10 +2,6 @@
 
 This application allows for people create a bucketlist online and add a series of lifegoals into it.
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
 ### Prerequisites
 
 Things you need to install the software 
